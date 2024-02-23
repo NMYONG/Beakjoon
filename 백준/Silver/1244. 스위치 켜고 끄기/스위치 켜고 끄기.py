@@ -1,36 +1,43 @@
-# 남자가 할 일: n의 배수인 번호를 가진 스위치의 상태를 모두 변경
-def man_do(n):
-    for i in range(n, N+1, n):
-        switch[i] = (switch[i] + 1) % 2
+def toggle(no):
+    # if switch[no] == 1:
+    #     switch[no] = 0
+    # else:
+    #     switch[no] = 1
+    switch[no] = (switch[no] + 1) % 2
 
 
-# 여자가 할 일:  n번 스위치의 앞 뒤로 같은 스위치가 최대 일 때, 그 범위의 스위치의 상태를 모두 변경
-def woman_do(n):
-    switch[n] = (switch[n] + 1) % 2
-    s = n - 1
-    e = n + 1
-    while 0 < s and e <= N:
-        if switch[s] == switch[e]:
-            switch[s] = (switch[s] + 1) % 2
-            switch[e] = (switch[e] + 1) % 2
-            s -= 1
-            e += 1
-        else:
-            break
+def man(no):
+    for i in range(no, N + 1, no):
+        toggle(i)
+
+
+def woman(no):
+    toggle(no)
+    n = no - 1
+    m = no + 1
+    while n >= 1 and N >= m and switch[n] == switch[m]:
+            toggle(n)
+            toggle(m)
+
+            n -= 1
+            m += 1
+
+
 
 
 N = int(input())
-switch = [-1] + list(map(int, input().split()))
+switch = [-100] + list(map(int, input().split()))
+num = int(input())
 
-Num = int(input())
-for _ in range(Num):
+for _ in range(num):
     sex, no = map(int, input().split())
-    if sex == 1:
-        man_do(no)
-    else:
-        woman_do(no)
 
-for idx in range(1, N+1):
-    print(switch[idx], end=' ')
-    if (idx % 20) == 0:
-        print()
+    if sex == 1:
+        man(no)
+    else:
+        woman(no)
+
+# print(*switch[1:])
+
+for idx in range(1, N+1, 20):
+    print(*switch[idx:idx+20])
