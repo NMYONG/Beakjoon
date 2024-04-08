@@ -1,42 +1,28 @@
-from collections import deque
-
-# 돌아가면 안 되지만 가장 먼 곳
-# 모든 육지에 대해서 bfs 실행?
-
-def bfs(row, col):
-
-    q = deque()
-    q.append((row, col))
-    visited[row][col] = 0
+def bfs(row,col):
+    global maxV
+    visited = [[0] * C for _ in range(R)]
+    q = []
+    q.append((row,col))
+    visited[row][col] = 1
 
     while q:
-        r, c = q.popleft()
+        vr,vc = q.pop(0)
 
-        for d in range(4):
-            nr = r + dr[d]
-            nc = c + dc[d]
-            if 0 <= nr < N and 0 <= nc < M:
-                if visited[nr][nc] == -1 and maps[nr][nc] == 'L':
-                    q.append((nr, nc))
-                    visited[nr][nc] = visited[r][c] + 1
+        for dr,dc in [(1,0),(-1,0),(0,1),(0,-1)]:
+            newR = vr + dr
+            newC = vc + dc
+            if 0<= newR < R and 0<=newC<C and not visited[newR][newC] and arr[newR][newC] == 'L':
+                visited[newR][newC] = visited[vr][vc] + 1
+                q.append((newR,newC))
+                maxV = max(maxV,visited[newR][newC])
 
 
-N, M = map(int, input().split())
-maps = [input() for _ in range(N)]
 
-max_v = 0
-dr = [-1, 1, 0, 0]
-dc = [0, 0, -1, 1]
-
-for i in range(N):
-    for j in range(M):
-        if maps[i][j] == 'L':
-            visited = [[-1] * M for _ in range(N)]
-            bfs(i, j)
-
-            for a in range(N):
-                for b in range(M):
-                    if visited[a][b] > max_v:
-                        max_v = visited[a][b]
-
-print(max_v)
+R,C = map(int,input().split())
+arr = [list(input()) for _ in range(R)]
+maxV = 0
+for row in range(R):
+    for col in range(C):
+        if arr[row][col] == 'L':
+            bfs(row,col)
+print(maxV-1)
