@@ -1,8 +1,8 @@
-
 import sys
 from collections import deque
 
 input = sys.stdin.readline
+
 
 class Deque:
     def __init__(self):
@@ -46,6 +46,7 @@ class Deque:
             return self.deque[-1]
         else:
             return -1
+
 
 N = int(input())
 deque = Deque()
