@@ -1,19 +1,18 @@
-def dfs(start, cnt):
+def dfs(a, cnt):
     global flag
 
-    visited[start] = True
+    visited[a] = 1
 
-    if start == B:
-        flag = True
+    if a == b:
+        flag = 1
         print(cnt)
 
-    for c in adj[start]:
-        if visited[c] == False:
+    for c in adj[a]:
+        if not visited[c]:
             dfs(c, cnt + 1)
 
-
 N = int(input())
-A, B = map(int, input().split())
+a, b = map(int, input().split())
 M = int(input())
 adj = [[] for _ in range(N + 1)]
 for _ in range(M):
@@ -21,9 +20,10 @@ for _ in range(M):
     adj[x].append(y)
     adj[y].append(x)
 
-visited = [False for _ in range(N+1)]
-flag = False
-dfs(A, 0)
 
-if flag == False:
+visited = [0] * (N+1)
+flag = 0
+
+dfs(a, 0)
+if not flag:
     print(-1)
