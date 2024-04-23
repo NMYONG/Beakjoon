@@ -1,20 +1,21 @@
-K = int(input())
-N = 2**K - 1
-lst = list(map(int, input().split()))
-answer = [[] for _ in range(K)]
+def dfs(lst, level):
+    midIndex = len(lst) // 2 # 배열의 가운데 인덱스 구하기
+    ans[level].append(lst[midIndex])
 
-def dfs(lst, depth):
-    mid_idx = len(lst) // 2
-    answer[depth].append(lst[mid_idx])
-
-    if len(lst) == 1:
+    if len(lst) == 1: # 종료조건
         return
 
-    dfs(lst[:mid_idx], depth+1)
-    dfs(lst[mid_idx+1:], depth+1)
+		# 가운데 인덱스를 기준으로 좌, 우로 나눠서 다시 dfs 돌린다.
+    dfs(lst[:midIndex], level + 1)
+    dfs(lst[midIndex + 1:], level + 1)
 
+K = int(input()) # level
+numList = list(map(int, input().split()))
 
-dfs(lst, 0)
+ans = [[] for _ in range(K)] # 정답을 담을 배열, level의 개수만큼 생성
 
-for i in answer:
+dfs(numList, 0)
+
+for i in ans:
     print(*i)
+
