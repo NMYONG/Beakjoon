@@ -1,7 +1,11 @@
 def dfs(n, lst):
+    global max_sum
+
     if n == 3:
         if sum(lst) <= M:
-            ans.append(lst)
+            if sum(lst) > max_sum :
+                max_sum  = sum(lst)
+            # ans.append(lst)
         return
 
     for i in range(N):
@@ -16,11 +20,11 @@ numList = list(map(int, input().split()))
 ans = []
 visited = [0] * N
 
+max_sum  = 0
 dfs(0, [])
 
-max = 0
-for i in ans:
-    if sum(i) > max:
-        max = sum(i)
+# for i in ans:
+#     if sum(i) > max:
+#         max = sum(i)
 
-print(max)
+print(max_sum)
