@@ -8,19 +8,19 @@ def isSame(lst):
 
 def solution(lst):
     if len(lst) % 2 == 0: # 짝수이면
-        last = len(lst)
+        length = len(lst)
     else:
-        last = len(lst) - 1
+        length = len(lst) - 1
 
-    while last > 0:
+    while length > 0:
         i = 0
         ans = 0
-        while i + last <= len(lst):
-            if isSame(lst[i:i+last]):
-                ans = last
+        while i + length <= len(lst):
+            if isSame(lst[i:i+length]):
+                ans = length
                 return ans
             i += 1
-        last -= 2
+        length -= 2
     return 0
 
 
