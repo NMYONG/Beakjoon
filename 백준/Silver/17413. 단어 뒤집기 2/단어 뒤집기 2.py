@@ -1,10 +1,7 @@
-import sys
-input = sys.stdin.readline
-
-S = input().rstrip()
+S = input() #
 stack = []
 for char in S:
-    if char == '<':
+    if char == '<': # 괄호로 시작되면 지금까지 스택의 문자열을 뒤집어서 출력, 스택에 괄호 넣어주기
         print(''.join(stack[::-1]), end = '')
         stack.clear()
         stack.append(char)
